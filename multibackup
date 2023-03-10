@@ -144,12 +144,21 @@ for folder_to_backup in "${folders_to_backup[@]}"; do
     # Copy backup using rclone
     if [[ -n "${rclone_destination}" ]]; then
 
+      # Define rclone config, else use default
+      RCLONE_CONFIG_FILE="" && [[ -n "${rclone_config}" ]]  && RCLONE_CONFIG_FILE="--config ${rclone_config} "
+
+      if [[ -n "${rclone_config}" ]]; then
+        info "Starting rclone copy using ${RCLONE_CONFIG_FILE}..."
+      else
+        info "Starting rclone copy using default rclone config..."
+      fi
+
       # Check if rclone is installed
       if [[ -z "$(which rclone)" ]]; then
         error "rclone is not installed. Skipping..."
       else
         info "Copying backup \"${absolute_backup_destination}/${timestamp}.tar.gz\" to \"${rclone_destination}/${backup_basename}\""
-        rclone copy "${absolute_backup_destination}/${timestamp}.tar.gz" "${rclone_destination}/${backup_basename}"
+        rclone ${RCLONE_CONFIG_FILE}copy "${absolute_backup_destination}/${timestamp}.tar.gz" "${rclone_destination}/${backup_basename}"
         if [[ $? -eq 0 ]]; then
           success "Backup \"${absolute_backup_destination}/${timestamp}.tar.gz\" successfully copied to \"${rclone_destination}/${backup_basename}\"!"
         else
