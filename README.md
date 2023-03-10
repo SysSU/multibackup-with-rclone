@@ -16,6 +16,7 @@ Bash script to backup multiple folders and to clean up old backups based on a re
 * `timestamp` = Format of the timestamp, used in the backup target filename
 * `backup_destination` = Local directory which is used to store the archives/backups
 * `rclone_destination` = Rclone remote and path where archives/backups will be copied to
+* `rclone_config` = Specify Rclone config file location
 * `folders_to_backup` = Array of folders to backup
 * `backup_retention` = Retention time how long we should keep the backups
 * `pre_commands` = Array of commands that are executed before the backup starts (stop specific service)
