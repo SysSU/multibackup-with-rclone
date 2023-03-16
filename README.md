@@ -21,6 +21,7 @@ Bash script to backup multiple folders and to clean up old backups based on a re
 * `backup_retention` = Retention time how long we should keep the backups
 * `pre_commands` = Array of commands that are executed before the backup starts (stop specific service)
 * `post_commands` = Array of commands that are executed after the backup finished (start specific service)
+* `ping_host` = URL or host you want to "ping" at end of backup using curl. You can use services like healthchecks.io
 
 ### Environment configurations
 

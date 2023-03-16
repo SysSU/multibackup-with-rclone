@@ -200,5 +200,18 @@ if [[ "${#post_commands[@]}" -ne 0 ]]; then
   done
 fi
 
+# Perform ping to indicate test ran
+current_action="end-script-tasks"
+current_task=1
+total_tasks=1
+if [[ -n "${ping_host}" ]]; then
+  info "Pinging \"${ping_host}\"..."
+  curl -s -o /dev/null "${ping_host}"
+  if [[ $? -eq 0 ]]; then
+    success "Ping to \"${ping_host}\" successfully completed!"
+  else
+    error "Ping to \"${ping_host}\" failed..."
+  fi
+fi
 # Return exit code
 exit 0
